@@ -1,0 +1,23 @@
+<form id="contact-form" method="post" action="https://formspree.io/byron.wasti@gmail.com"
+      method="POST">
+    <div class="controls">
+        <div class="form-group">
+            <input id="name" class="form-control" 
+                   name="name" required="required" 
+                   type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+            <input id="email" type="email" name="_replyto" 
+             required="required" placeholder="Your email">
+        </div>
+        <div class="form-group">
+            <textarea id="message" class="form-control" 
+                   rows="4" required="required"
+                   type="text" name="message"
+                   placeholder="Your message">
+            </textarea>
+        </div>
+        <input type="hidden" name="_subject" value="[Website Contact]">
+        <input type="submit" value="Send">
+    </div>
+</form> 

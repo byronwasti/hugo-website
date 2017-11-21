@@ -1,0 +1,41 @@
+{{ partial "header.html" . }}
+
+<h1>Byron Wasti</h1>
+<h2>About Me</h2>
+<p>I'm a systems level programmer with a love for system architecture design.</p>
+
+<div class="container">
+<h2>Projects</h2>
+<p><a href="{{ .Site.BaseURL }}/project">[View All]</a></p>
+</div>
+
+<div class="list-container">
+{{ range first 5 (where .Data.Pages "Section" "project") }}
+    <div class="list-item">
+        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Description }}</p>
+    </div>
+{{ end }}
+</div>
+
+
+<div class="container">
+<h2>Posts</h2>
+<p><a href="{{ .Site.BaseURL }}/post">[View All]</a></p>
+</div>
+
+<div class="list-container">
+{{ range first 5 (where .Data.Pages "Section" "post") }}
+    <div class="list-item">
+        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    </div>
+{{ end }}
+</div>
+
+<h2>Contact</h2>
+<p><a href="mailto:byron.wasti@gmail.com">byron.wasti@gmail.com</a></p>
+<p><a href="https://www.linkedin.com/in/byron-wasti-595b23a4">Linkedin</a></p>
+
+{{ partial "formspree.html" . }}
+
+{{ partial "footer.html" . }}

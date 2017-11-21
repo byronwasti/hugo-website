@@ -1,0 +1,8 @@
+{{ partial "header.html" . }}
+
+{{ range .Data.Pages }}
+    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
+{{ end }}
+
+{{ partial "footer.html" . }}

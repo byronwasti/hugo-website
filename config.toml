@@ -1,0 +1,5 @@
+baseURL = "http://byronwasti.com/"
+languageCode = "en-us"
+title = "Byron Wasti"
+author = "Byron Wasti"
+license = "MIT"

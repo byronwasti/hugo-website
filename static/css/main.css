@@ -1,0 +1,125 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+
+body {
+    margin: 0 auto;
+    max-width: 50em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+
+    line-height: 1.5;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 4em;
+
+    color: #566b78;
+}
+
+h1,h2,strong {
+    color: #333;
+    font-weight: 400;
+}
+
+h2 {
+    margin-top: 1em;
+    padding-top: 1em;
+}
+
+code, pre {
+    background: #f5f7f9;
+    border-bottom: 1px solid #d8dee9;
+    color: #a7adba;
+}
+
+code {
+    padding: 2px 4px;
+    vertical-align: text-bottom;
+}
+
+pre {
+    padding: 1em;
+    border-left: 2px solid #69c;
+}
+
+a {
+    color: #e81c4f;
+    text-decoration: none;
+}
+
+/* Nav Bar */
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav li {
+    float: left;
+}
+
+.nav li a {
+    display: block;
+    text-align: center;
+    margin-right: 2em;
+    text-decoration: none;
+}
+
+/* Main */
+.list-item h3,
+.list-item p {
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+.list-item h3 {
+    font-size: 1.1em;
+}
+
+.list-item {
+    margin-bottom: 2em;
+}
+
+
+.container {
+    display: flex;
+    display: -webkit-flex;
+    align-items: baseline;
+}
+
+.container p {
+    margin-left: 1em;
+}
+
+label {
+    display: inline-block;
+}
+
+input {
+    width: 15em;
+    border: 0;
+    border: 1px solid #999;
+    border-left: 2px solid #e81c4f;
+    border-top: 0;
+    border-right: 0;
+    padding-left: 5px;
+    margin-bottom: 5px;
+    color: #000;
+
+    background: #fff;
+}
+
+textarea {
+    width: 25em;
+    padding-left: 5px;
+    border: 1px solid #999;
+    border-top: 0;
+    border-right: 0;
+    border-left: 2px solid #e81c4f;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
