@@ -1,8 +1,17 @@
 {{ partial "header.html" . }}
 
+<h1>Posts</h1>
+
+<div class="list-container">
 {{ range .Data.Pages }}
-    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-    <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
+    <div class="list-item">
+        <div class="container">
+            <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
+        </div>
+        <p> {{ .Description }} </p>
+    </div>
 {{ end }}
+</div>
 
 {{ partial "footer.html" . }}

@@ -123,3 +123,8 @@ button, input, select, textarea {
     font-size: inherit;
     line-height: inherit;
 }
+
+img {
+    width: 100%;
+    max-width: 50em;
+}
