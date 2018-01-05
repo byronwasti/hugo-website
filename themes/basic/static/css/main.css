@@ -80,6 +80,15 @@ a {
     margin-bottom: 2em;
 }
 
+.list-item a {
+    color: #566b78;
+    font-weight: 400;
+}
+
+
+.list-item a:hover {
+    color: #e81c4f;
+}
 
 .container {
     display: flex;
@@ -128,3 +137,4 @@ img {
     width: 100%;
     max-width: 50em;
 }
+
