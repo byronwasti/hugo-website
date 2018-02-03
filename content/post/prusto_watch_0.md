@@ -7,4 +7,4 @@ draft: false
 
 *Work in progress*
 
-The Prusto Watch is an Open Source smart watch with Firmwarre written in Rust. 
+The Prusto Watch is an Open Source smart watch with firmware written in Rust. 
