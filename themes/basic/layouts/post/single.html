@@ -1,7 +1,10 @@
 {{ partial "header.html" . }}
 
 <body>
-    <h1>{{ .Title }}</h1>
+    <div class="container">
+        <h1>{{ .Title }}</h1>
+        <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
+    </div>
     {{ .Content }}
 </body>
 
