@@ -1,5 +1,5 @@
 ---
-title: "Prusto Watch #0: Design"
+title: "Prusto Watch #0: Design & Goals of the Project"
 date: 2017-11-23T09:59:59-05:00
 tags: ["prusto-watch"]
 draft: false
