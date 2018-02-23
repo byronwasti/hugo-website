@@ -35,7 +35,7 @@ Perhaps the nicest tool available is the `svd2rust` program. This is a tool that
 
 For example, the following code sets up pin PE9 as an output pin:
 
-```rust 
+```
 let dp = stm32f30x::Peripherals::take().unwrap();
 dp.GPIOA.moder.modify(|_, w| w.moder9().output());
 ```
