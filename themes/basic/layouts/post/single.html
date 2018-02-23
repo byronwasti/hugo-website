@@ -1,11 +1,9 @@
 {{ partial "header.html" . }}
 
-<body>
-    <div class="container">
-        <h1>{{ .Title }}</h1>
-        <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
-    </div>
-    {{ .Content }}
-</body>
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    <p> {{ .Date.Format (.Site.Params.dateform | default "January 2006") }}</p>
+</div>
+{{ .Content }}
 
 {{ partial "footer.html" . }}

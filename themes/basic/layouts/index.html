@@ -1,13 +1,11 @@
 {{ partial "header.html" . }}
 
-<h1>{{ .Site.Title }}</h1>
-<h2>About Me</h2>
+<h1>About Me</h1>
 
 {{ .Content }}
 
 <div class="container">
-<h2>Projects</h2>
-<p><a href="{{ .Site.BaseURL }}/project">[View All]</a></p>
+<h1>Projects</h1>
 </div>
 
 <div class="list-container">
@@ -19,11 +17,10 @@
 {{ end }}
 </div>
 
-<p><a href="{{ .Site.BaseURL }}/project">[View More]</a></p>
+<p><a href="{{ .Site.BaseURL }}/project">[View All]</a></p>
 
 <div class="container">
-<h2>Posts</h2>
-<p><a href="{{ .Site.BaseURL }}/post">[View All]</a></p>
+<h1>Posts</h1>
 </div>
 
 <div class="list-container">
@@ -35,23 +32,15 @@
 {{ end }}
 </div>
 
-<p><a href="{{ .Site.BaseURL }}/post">[View More]</a></p>
+<p><a href="{{ .Site.BaseURL }}/post">[View All]</a></p>
 
 <div class="container">
-<h2>Contact</h2>
+<h1>Contact</h1>
 </div>
 
 <div class="list-container">
     <div class="list-item">
-        <p><a href="mailto:byron.wasti@gmail.com">byron.wasti@gmail.com</a></p>
-    </div>
-    <div class="list-item">
-        <p><a href="https://www.linkedin.com/in/byron-wasti-595b23a4">Linkedin</a></p>
-    </div>
-
-    <div class="list-item">
     {{ partial "formspree.html" . }}
-
     </div>
 </div>
 
