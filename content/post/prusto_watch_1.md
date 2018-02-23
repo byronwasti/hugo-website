@@ -5,44 +5,44 @@ tags: []
 draft: false
 ---
 
-In this post I will describe my initial dive into Arm development using Rust. There are potentially many mistakes in my understanding, so this post should not be used as a reference for how to do embedded development in Rust. However, I think it is useful to describe the learning process being new to Rust and Arm development so that those more experienced can see the pain-points of getting started.
+In this post I will describe my initial dive into Arm development using Rust. There are potentially many mistakes in my understanding, so this post should not be used as a reference for how to do embedded development in Rust. However, I think it is useful to describe the learning process so that those more experienced can see the pain-points of beginners.
 
 ## Firmware Tools
 
-To get started with writing firmware with Rust, I had to gather a few tools and resources. My build system follows japaric's system, which he writes about [here](http://blog.japaric.io/quickstart/). It was fairly straightforward to get set-up, so I won't repeat what he talks about here. 
+The build system I am using follows japaric's system, which he writes about [here](http://blog.japaric.io/quickstart/). Japaric's post goes into a bit more detail about the tools, but the main ones are `openocd`, the arm build-tools, and `xargo`.
 
-One nice aspect about the tools required for writing firmware in Rust is that they are all open source and all CLI tools. This means that it is easy write a script to pipe them together and modify the work-flow for how you want to work.
-
-The general work-flow I took was running `openocd` in the background, compiling with `xargo` and flashing + debugging with `arm-none-eabi-gdb`. Technically you can combine the last two steps by running `xargo run`, which will call `gdb` automatically.
+One nice aspect about the tools required for writing firmware in Rust is that they are all open source and all CLI tools. This means that anyone can get access to them and they can easily interface with each other.  The general work-flow I currently have is running `openocd` in the background, compiling with `xargo` and then flashing + debugging with `arm-none-eabi-gdb`. Technically you can combine the last two steps by running `xargo run`, which will call `arm-none-eabi-gdb` automatically.
 
 ## Programming for Arm
 
-One of the major things I learned this week was developing on Arm MCUs. I come from a background of AVR, so the world of Arm was slightly mysterious. However, after diving into a few datasheets and reading various blog posts online I have mostly demystified them.
+One of the major things I've been learning about is how to develop on Arm MCUs. I come from a background of AVR MCUs, so the world of Arm was slightly mysterious. However, after diving into a few datasheets and reading various blog posts online I have mostly demystified them.
 
 The biggest difference I found between AVR and Arm is that for Arm you have to manually turn-on various peripherals, such as a GPIO-pin group. This is done in the set of registers under the *Reset and Clock Control* (RCC) group. At first, this was extremely confusing, since the name of RCC is not at all descriptive of this functionality.
 
-The second main difference I found was that GPIO pins had to be set for a specific alternative function. It was not enough to know that a GPIO pin *could* operate SPI1, you have to manually set that GPIO pin to the correct alternate function first. Thankfully, a lot of the work that is being done in the Rust ecosystem is ensuring that you correctly set up GPIO pins for various peripherals at *compile-time*.
+The second main difference I found was that GPIO pins had to be set for a specific alternative function. It was not enough to know that a GPIO pin *could* operate SPI, you have to set that GPIO pin to the correct alternate function before it would act as a SPI pin. Thankfully, a lot of the work that is being done in the Rust ecosystem is ensuring that you correctly set up GPIO pins for various peripherals at *compile-time*, which I will talk a little bit about later.
 
-An extremely frustrating aspect of setting up GPIO pins to their alternate functionality is that the alternate function number for each GPIO pin is *not* in the 1141 page reference manual. They are only in the short, 148 page datasheet. This is absolutely ridiculous, and took far too long to figure out.
+An extremely frustrating aspect of setting up GPIO pins to their alternate functionality is that the alternate function number for each GPIO pin is *not* in the 1141 page reference manual. They are only in the short, 148 page datasheet. This, as far as I can tell, is absolutely ridiculous, and took far too long to figure out.
+
+Overall, working with Arm chips is about the same as working with AVR chips: the datasheet has (basically) everything you need to know.
 
 ## Embedded Rust Ecosystem
 
-The embedded ecosystem for Rust is quite young, and there really isn't much out there. However, what is there seems to be very well thought-out and (mostly) functional.
+The embedded ecosystem for Rust is quite young, and there really isn't much out there. However, the libraries and tools available seem to be very well thought-out and highly functional given their current state.
 
 ### svd2rust
 
-Perhaps the nicest tool available is the `svd2rust` program. This is a tool that takes in an `svd` file, which is an xml file and the standardized way for describing the peripherals of an Arm device and their registers, and converts it into a Rust library. It isn't perfect, and there seems to be some "fixing" of the `svd` files required before the Rust library is full-featured. However, once the library is created, you can manipulate registers in an extremely readable manner.
+One of the main tools available is the `svd2rust` program. This is a program that takes in an `svd` file, which is an standardized xml file for describing the peripherals of an Arm device and their registers, and converts it into a Rust library. Since the `svd` files aren't perfect there seems to be some "fixing" of the `svd` files required before the generated Rust library is fully-featured. However, this process only needs to happen once before a crate is available online that provides the library for everyone to use.
 
-For example, the following code sets up pin PE9 as an output pin:
+Once the library is created, you can manipulate registers in an extremely readable manner. For example, the following code sets up pin PE9 as an output pin:
 
 ```rust 
 let dp = stm32f30x::Peripherals::take().unwrap();
 dp.GPIOA.moder.modify(|_, w| w.moder9().output());
 ```
 
-Although the modify routine on a register takes a closure, the compiled code, according to japaric's tests, is just as fast as modifying the registers by bit-shifting. This is awesome, since the code is significantly more readable than setting registers using bit masks.
+Although the modify routine on a register takes a closure, the compiled assembly, according to japaric's tests, is just as fast as modifying the registers by bit-shifting. This is a large improvement over the way things are done in C, since the code is significantly more readable and less error-prone than setting registers using bit masks.
 
-The other nice aspect of the generated Rust library is that it allows us to use Rust to its *full* power. Each register is a normal Rust variable and the ownership model applies. This means Rust will catch, at *compile-time*, unsafe memory patterns and race-conditions. Essentially you have all the guarantees that Rust provides when doing direct register manipulation, which is pretty awesome. 
+The other nice aspect of the generated Rust library is that it allows us to use Rust to its *full* power. Each register is a common struct, and the ownership model applies. This means Rust will catch, at *compile-time*, unsafe memory patterns and race-conditions. Essentially you have all the guarantees that Rust provides when doing direct register manipulation, which is pretty awesome.
 
 ### Real Time For the Masses (RTFM)
 
