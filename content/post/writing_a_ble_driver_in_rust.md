@@ -142,7 +142,7 @@ The final thing I want to talk about for my driver is attempting to implement a 
 
 My reasoning for using a state-machine is due to the two modes of the RN4870 module. It is either in Command Mode, where you can send different configuration commands, or it is in Data Mode, where it sends UART data over BLE. It would be nice if certain functionality is exposed based on the mode the module is in.
 
-I won't go through all of the small details of my implementation, which can be found in the [driver repository](https://github.com/byronwasti/rn4870), but I do want to discuss some of the larger issues with having a state machine implemented using the type system.
+I won't go through all of the small details of my implementation, which can be found in the [tagged driver repository](https://github.com/byronwasti/rn4870/tree/v0.1.0), but I do want to discuss some of the larger issues with having a state machine implemented using the type system.
 
 The general idea behind the type system state machine I used (and is described in the blog post above) is that there are various structs which encompass the various states a system can be in. There is then a main struct (the state machine) which contains one of the various structs. Currently for my driver these are empty structs, but one could easily have data connected with them.
 
