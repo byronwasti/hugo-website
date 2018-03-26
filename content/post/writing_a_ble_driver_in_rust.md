@@ -5,7 +5,7 @@ draft: false
 ---
 *The repository for the driver is located here: https://github.com/byronwasti/rn4870*
 
-This post will document my process and thoughts on writing a driver for a bluetooth module using Rust and the `embedded-hal` crate. Note that this is not a driver release, as the driver is in not complete and will most likely be going through a rewrite due to things I learned while writing the driver.
+This post will document my process and thoughts on writing a driver for a bluetooth module using Rust and the `embedded-hal` crate. Note that this is not a driver release, as the driver is not complete and will most likely be going through a rewrite due to things I learned while writing the driver.
 
 The specific bluetooth device I will be using is the RN4870 BLE castellated module. It features a simple UART interface and handles most of the complexities of BLE itself, making it very easy to get a simple BLE connection up and running. It also comes in a variety of sizes and packages, as shown below.
 
@@ -109,7 +109,7 @@ First, I am going to back up a step. The stm32f30x family of microcontrollers wi
 
 First, there are no HAL traits for dealing with serial errors, so my driver has no device-agnostic way of dealing with the overrun error.
 
-Second, the `stm32f30x-hal` crate does not automatically reset the overrun error when it occurs. There is a similar issue for the SPI peripheral of this device, as noted here: [https://github.com/japaric/stm32f30x-hal/issues/13 ](https://github.com/japaric/stm32f30x-hal/issues/13). The proposed solution is to automatically handle the error when it occurs. However, is auto-resetting the error the correct way to handle this situation? Currently nobody other than the issue poster has responded to the issue, and there is a pull-request sitting with no responses which implements the auto-resetting of the SPI errors, which does not instill confidence in me that this issue will be resolved soon.
+Second, the `stm32f30x-hal` crate does not automatically reset the overrun error when it occurs. There is a similar issue for the SPI peripheral of this device, as noted here: [https://github.com/japaric/stm32f30x-hal/issues/13 ](https://github.com/japaric/stm32f30x-hal/issues/13). The proposed solution is to automatically handle the error when it occurs. However, is auto-resetting the error the correct way to handle this situation? Currently nobody other than the OP has responded to the issue, and there is a pull-request which implements the auto-resetting of the SPI errors sitting with no responses. This does not instill confidence in me that this issue will be resolved soon.
 
 So, as far as I can tell, there is no method for handling the overrun error in a clean, device-agnostic way. I decided to implement a workaround that allows users of the driver to have a device-specific handling of errors. To do this, I added a method which takes in a closure which will be run on the UART registers.
 
