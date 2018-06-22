@@ -163,8 +163,10 @@ button, input, select, textarea {
 
 /* Misc */
 img {
-    /*width: 100%;*/
+    width: 100%;
+    /*
     max-width: 50em;
     max-height: 25em;
+    */
 }
 
